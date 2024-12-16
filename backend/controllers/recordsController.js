@@ -1,7 +1,7 @@
 import { Low, JSONFile } from 'lowdb';
 
 // Crear una instancia de la base de datos
-const adapter = new JSONFile('backend/db.json');
+const adapter = new JSONFile('./db.json');
 const db = new Low(adapter);
 
 // Leer los datos de la base de datos
