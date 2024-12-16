@@ -1,3 +1,8 @@
 {
-  "records": []
+  "users": [
+    {
+      "name": "Juan",
+      "email": "juan@example.com"
+    }
+  ]
 }

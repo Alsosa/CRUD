@@ -1,32 +1,68 @@
 import express from 'express';
-import cors from 'cors';
-import { Low, JSONFile } from 'lowdb'; // Importamos LowDB
-import recordsRoutes from './routes/records.js'; // Importamos las rutas de registros
+import bodyParser from 'body-parser';
+import { Low, JSONFile } from 'lowdb';
 
-// Crear una instancia de Express
+// Inicializar la aplicación de Express
 const app = express();
-app.use(express.json());  // Para manejar el cuerpo de las solicitudes en formato JSON
-app.use(cors());  // Habilitamos CORS para solicitudes de diferentes orígenes
+const port = 5000;
 
-// Configuración de la base de datos con Lowdb
-const adapter = new JSONFile('./db.json');
-const db = new Low(adapter);
+// Usar body-parser para analizar el cuerpo de las solicitudes POST
+app.use(bodyParser.json());
 
-// Leer los datos de la base de datos
-async function initDb() {
+// Configuración de la base de datos (lowdb)
+const db = new Low(new JSONFile('./db.json'));
+
+// Inicializar la base de datos si no está definida
+async function initializeDatabase() {
   await db.read();
-  db.data ||= { records: [] };  // Si no existen registros, inicializamos un array vacío
+  
+  // Si la base de datos no está definida, inicialízala con una colección 'users' vacía
+  if (!db.data) {
+    db.data = { users: [] };
+  }
+
+  // Verificar que 'users' sea un array
+  if (!Array.isArray(db.data.users)) {
+    db.data.users = [];
+  }
+
+  // Escribimos la base de datos si hubo cambios
   await db.write();
 }
 
-// Llamamos a la función para inicializar la base de datos
-initDb();
+// Ruta para el registro de usuarios
+app.post('/api/register', async (req, res) => {
+  const { name, email } = req.body;
 
-// Usar las rutas para manejar los registros
-app.use('/api/records', recordsRoutes);  // Conectamos las rutas de registros al servidor
+  // Validar que los campos 'name' y 'email' estén presentes
+  if (!name || !email) {
+    return res.status(400).json({ message: 'Faltan campos requeridos: nombre y correo.' });
+  }
+
+  try {
+    // Inicializar la base de datos y verificar que 'users' esté disponible
+    await initializeDatabase();
+
+    // Asegurarse de que 'users' esté inicializado como un array
+    if (!Array.isArray(db.data.users)) {
+      db.data.users = [];
+    }
+
+    // Agregar el nuevo usuario al arreglo 'users'
+    db.data.users.push({ name, email });
+
+    // Guardar los cambios en la base de datos
+    await db.write();
+
+    // Responder con un mensaje de éxito
+    res.status(201).json({ message: 'Usuario creado con éxito', user: { name, email } });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al crear el usuario', error });
+  }
+});
 
 // Iniciar el servidor en el puerto 5000
-app.listen(5000, () => console.log('Servidor en el puerto 5000'));
-
-// Exportar la app para otros módulos, si es necesario
-export default app;
+app.listen(port, () => {
+  console.log(`Servidor corriendo en http://localhost:${port}`);
+});
