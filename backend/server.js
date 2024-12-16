@@ -9,7 +9,7 @@ app.use(express.json());  // Para manejar el cuerpo de las solicitudes en format
 app.use(cors());  // Habilitamos CORS para solicitudes de diferentes orígenes
 
 // Configuración de la base de datos con Lowdb
-const adapter = new JSONFile('backend/db.json');
+const adapter = new JSONFile('./db.json');
 const db = new Low(adapter);
 
 // Leer los datos de la base de datos
