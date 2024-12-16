@@ -1,0 +1,56 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Dependencias de Node.js
+node_modules/
+
+# Archivos de construcción
+dist/
+build/
+
+# Archivos de configuración específicos del entorno
+.env
+.env.*.local
+
+# Archivos de logs y depuración
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Salidas de producción
+out/
+
+# Cachés de TypeScript
+*.tsbuildinfo
+
+# Configuración de VS Code
+.vscode/
+
+# Archivos de sistema específicos de macOS o Windows
+.DS_Store
+Thumbs.db
+
+# Cachés de Parcel o Webpack
+.cache/
