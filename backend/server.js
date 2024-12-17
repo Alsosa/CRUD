@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import { Low, JSONFile } from 'lowdb';
 
@@ -7,7 +8,11 @@ const app = express();
 const port = 5000;
 
 // Usar body-parser para analizar el cuerpo de las solicitudes POST
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+
+app.use(cors()); // Habilita CORS
+app.use(express.json()); // Permite manejar JSON en el cuerpo de las solicitudes
+
 
 // Configuración de la base de datos (lowdb)
 const db = new Low(new JSONFile('./db.json'));
