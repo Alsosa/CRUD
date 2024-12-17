@@ -1,16 +1,14 @@
 {
   "users": [
     {
-      "name": "Juan",
-      "email": "juan@example.com"
+      "id": "23117810-43ac-418d-862c-8f4bdadf0b11",
+      "name": "jorge",
+      "email": "jorge@gmail.com"
     },
     {
-      "name": "alan",
-      "email": "alan@example.com"
-    },
-    {
-      "name": "Alancito",
-      "email": "asd@gmail.com"
+      "id": "371437cd-f90f-4f25-87e8-73a262a9631b",
+      "name": "santi",
+      "email": "santi@gmail.com"
     }
   ]
 }

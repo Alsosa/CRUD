@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import bodyParser from 'body-parser';
 import { Low, JSONFile } from 'lowdb';
+import { randomUUID } from 'crypto'; // Importar para generar un ID único
 
 // Inicializar la aplicación de Express
 const app = express();
@@ -54,7 +54,7 @@ app.post('/api/register', async (req, res) => {
     }
 
     // Agregar el nuevo usuario al arreglo 'users'
-    db.data.users.push({ name, email });
+    db.data.users.push({id: randomUUID(), name, email });
 
     // Guardar los cambios en la base de datos
     await db.write();
@@ -65,6 +65,23 @@ app.post('/api/register', async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Error al crear el usuario', error });
   }
+});
+
+// Ruta DELETE para eliminar un registro
+app.delete('/api/register/:id', async (req, res) => {
+  const { id } = req.params;
+
+  // Filtrar registros y eliminar el que coincida con el id
+  const initialLength = db.data.users.length;
+  db.data.users = db.data.users.filter(user => user.id !== id);
+
+  // Verificar si se eliminó un registro
+  if (db.data.users.length === initialLength) {
+    return res.status(404).json({ message: 'Registro no encontrado' });
+  }
+
+  await db.write(); // Guardar los cambios en el archivo db.json
+  res.status(200).json({ message: 'Registro eliminado correctamente' });
 });
 
 // Iniciar el servidor en el puerto 5000
