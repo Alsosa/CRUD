@@ -21,6 +21,8 @@ const db = new Low(new JSONFile('./db.json'));
 async function initializeDatabase() {
   await db.read();
   
+  console.log('Contenido inicial de db.json:', db.data);
+
   // Si la base de datos no está definida, inicialízala con una colección 'users' vacía
   if (!db.data) {
     db.data = { users: [] };
@@ -34,6 +36,23 @@ async function initializeDatabase() {
   // Escribimos la base de datos si hubo cambios
   await db.write();
 }
+
+// // Ruta GET para obtener los usuarios
+// app.get('/api/users', (req, res) => {
+//   res.json(db.data.users);  // Enviar todos los usuarios como respuesta
+// });
+
+app.get('/api/users', async (req, res) => {
+  await initializeDatabase(); // Asegura que la base de datos está cargada
+  
+  console.log('Datos de la base de datos:', db.data); // Para ver qué tiene db.data
+
+  if (!db.data || !db.data.users) {
+    return res.status(500).json({ message: 'Error: base de datos no inicializada correctamente' });
+  }
+
+  res.json(db.data.users);  // Enviar todos los usuarios como respuesta
+});
 
 // Ruta para el registro de usuarios
 app.post('/api/register', async (req, res) => {
@@ -68,7 +87,7 @@ app.post('/api/register', async (req, res) => {
 });
 
 // Ruta DELETE para eliminar un registro
-app.delete('/api/register/:id', async (req, res) => {
+app.delete('/api/users/:id', async (req, res) => {
   const { id } = req.params;
 
   // Filtrar registros y eliminar el que coincida con el id
@@ -87,4 +106,9 @@ app.delete('/api/register/:id', async (req, res) => {
 // Iniciar el servidor en el puerto 5000
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
+});
+
+// Ruta raíz para evitar "Cannot GET /"
+app.get('/', (req, res) => {
+  res.send('Servidor funcionando correctamente.'); // Respuesta simple
 });
