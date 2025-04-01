@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { createRegister } from './api/api';
-import UserList from './components/UserList'
+import UserList from './components/UserList';
 
-const App: React.FC = () => {
+const Home: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
@@ -39,8 +40,25 @@ const App: React.FC = () => {
       >
         Crear Registro
       </button>
-      <UserList></UserList>
     </div>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <Router>
+      <div className="p-6">
+        <nav className="mb-4">
+          <Link to="/" className="mr-4 text-blue-500">Inicio</Link>
+          <Link to="/users" className="text-blue-500">Usuarios</Link>
+        </nav>
+        
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/users" element={<UserList />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
