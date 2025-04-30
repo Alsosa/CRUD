@@ -11,9 +11,17 @@
       "email": "juan@example.com"
     },
     {
-      "id": "7a2ac1cb-e2c6-49cb-a9b7-cab5692e1b57",
-      "name": "carlos",
-      "email": "juan@example.com"
+      "id": "6befb8ba-ed18-42d0-80c9-e34fc1c3911f",
+      "name": "obon",
+      "email": "nico@gmail.com"
+    },
+    {
+      "id": "123",
+      "name": "admin",
+      "email": "admin@example.com",
+      "roles": [
+        "admin"
+      ]
     }
   ]
 }

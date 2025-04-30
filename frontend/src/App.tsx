@@ -1,11 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { createRegister } from './api/api';
+import { getUserRoles } from './api/auth';
 import UserList from './components/UserList';
+import Login from './components/Login';
 
 const Home: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [userEmail, setUserEmail] = useState<string | null>(localStorage.getItem('userEmail'));
+  const [roles, setRoles] = useState<string[]>([]);
+  const [rolesFetched, setRolesFetched] = useState(false);
+
+  useEffect(() => {
+    const fetchRoles = async () => {
+      if (userEmail) {
+        try {
+          const roles = await getUserRoles(userEmail);
+          setRoles(roles);
+          setRolesFetched(true);
+        } catch (error) {
+          console.error('Error fetching roles:', error);
+        }
+      }
+    };
+  
+    fetchRoles();
+  }, [userEmail]);
+  
 
   const handleCreate = async () => {
     try {
@@ -19,6 +41,29 @@ const Home: React.FC = () => {
 
   return (
     <div className="p-6">
+      {userEmail ? (
+        <div className="mb-4">
+          <p className="text-green-600">Estás logueado como: {userEmail}</p>
+          {roles.length > 0 ? (
+            <p>Roles: {roles.join(', ')}</p>
+          ) : rolesFetched ? (
+            <p>No se encontraron roles</p>
+          ) : (
+            <p>Cargando roles...</p>
+          )}
+          <button
+            onClick={() => {
+              localStorage.removeItem('userEmail');
+              window.location.reload();
+            }}
+            className="bg-red-500 text-white px-3 py-1 rounded ml-2"
+          >
+            Cerrar sesión
+          </button>
+        </div>
+      ) : (
+        <p className="text-red-500 mb-4">No has iniciado sesión</p>
+      )}
       <h1 className="text-2xl font-bold mb-4">Crear Registro</h1>
       <input
         type="text"
@@ -50,12 +95,14 @@ const App: React.FC = () => {
       <div className="p-6">
         <nav className="mb-4">
           <Link to="/" className="mr-4 text-blue-500">Inicio</Link>
-          <Link to="/users" className="text-blue-500">Usuarios</Link>
+          <Link to="/users" className="mr-4 text-blue-500">Usuarios</Link>
+          <Link to="/login" className="text-blue-500">Login</Link>
         </nav>
         
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/users" element={<UserList />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </Router>
