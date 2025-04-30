@@ -103,12 +103,42 @@ app.delete('/api/users/:id', async (req, res) => {
   res.status(200).json({ message: 'Registro eliminado correctamente' });
 });
 
+// Ruta raíz para evitar "Cannot GET /"
+app.get('/', (req, res) => {
+  res.send('Servidor funcionando correctamente.'); // Respuesta simple
+});
+
+app.post('/api/auth/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  //simulo autenticacion basica
+  if (email === 'admin@example.com' && password === '123456') {
+    return res.status(200).json({ token: 'fake-jwt-token', user: { email, role: 'admin' } });
+  }
+
+  res.status(401).json({ message: 'Credenciales invalidas' });
+});
+
+app.get('/api/user-roles', async (req, res) => {
+  const email = req.query.email;
+
+  if (!email) {
+    return res.status(400).json({ error: 'Email requerido' });
+  }
+
+  await db.read();
+  const user = db.data.users.find((u) => u.email === email);
+
+  if (!user || !user.roles) {
+    return res.json([]);
+  }
+
+  res.json(user.roles);
+});
+
 // Iniciar el servidor en el puerto 5000
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
 });
 
-// Ruta raíz para evitar "Cannot GET /"
-app.get('/', (req, res) => {
-  res.send('Servidor funcionando correctamente.'); // Respuesta simple
-});
+
