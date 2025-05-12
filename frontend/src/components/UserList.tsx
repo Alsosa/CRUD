@@ -32,25 +32,25 @@ const UserList = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen">
       <h1>Lista de Usuarios</h1>
       {error && <p className="text-red-500">{error}</p>}
-      <table className="min-w-full bg-white border border-gray-200">
+      <table className="min-w-full overflow-hidden text-black rounded-lg">
         <thead>
           <tr>
-            <th className="px-4 py-2">ID</th>
-            <th className="px-4 py-2">Nombre</th>
-            <th className="px-4 py-2">Email</th>
-            <th className="px-4 py-2">Acciones</th>
+            <th className="px-4 py-2 rounded-tl-lg bg-gray-200">ID</th>
+            <th className="px-4 py-2 bg-gray-200">Nombre</th>
+            <th className="px-4 py-2 bg-gray-200">Email</th>
+            <th className="px-4 py-2 rounded-tr-lg bg-gray-200">Acciones</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="bg-yellow-500">
           {users.map((user) => (
-            <tr key={user.id}>
-              <td className="px-4 py-2">{user.id}</td>
-              <td className="px-4 py-2">{user.name}</td>
-              <td className="px-4 py-2">{user.email}</td>
-              <td className="px-4 py-2">
+            <tr key={user.id} className="[&>td]:shadow-[inset_0_-1px_0_0_rgba(0,0,0,1)]">
+              <td className="px-4 py-2 text-center">{user.id}</td>
+              <td className="px-4 py-2 border-l border-black text-center">{user.name}</td>
+              <td className="px-4 py-2 border-l border-black text-center">{user.email}</td>
+              <td className="px-4 py-2 border-l border-black text-center">
                 <button
                   onClick={() => handleDelete(user.id)}
                   className="text-red-500 hover:text-red-700"

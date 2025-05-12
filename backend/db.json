@@ -22,6 +22,106 @@
       "roles": [
         "admin"
       ]
+    },
+    {
+      "id": "1c4af568-fd34-4221-8bb4-5820fa627cd8",
+      "name": "Juan",
+      "email": "raul@example.com"
+    },
+    {
+      "id": "5270b41a-632d-4a26-96ff-7a9781c90a62",
+      "name": "Beatriz",
+      "email": "luis@example.com"
+    },
+    {
+      "id": "090e891f-cc9c-4582-8e87-b865909797ac",
+      "name": "Rosa",
+      "email": "david@example.com"
+    },
+    {
+      "id": "1eb78382-9363-41ad-a527-12236902ef50",
+      "name": "Paula",
+      "email": "raul@example.com"
+    },
+    {
+      "id": "f6e9a18a-bb6d-4c7f-b1aa-3960b125c62e",
+      "name": "Luis",
+      "email": "luis@example.com"
+    },
+    {
+      "id": "c2da05fc-9362-40c5-be38-a60ba4645e20",
+      "name": "Beatriz",
+      "email": "jose@example.com"
+    },
+    {
+      "id": "349fa120-1074-4c39-afad-44b37a85c9c0",
+      "name": "Pedro",
+      "email": "pedro@example.com"
+    },
+    {
+      "id": "c0e6c796-1eda-4268-8996-5c934714ec0f",
+      "name": "Marta",
+      "email": "jose@example.com"
+    },
+    {
+      "id": "379fecd6-59c3-4dd2-823d-fac66df8e31b",
+      "name": "Laura",
+      "email": "david@example.com"
+    },
+    {
+      "id": "a3d9351b-0328-4a7a-803f-1a1587057433",
+      "name": "Carmen",
+      "email": "antonio@example.com"
+    },
+    {
+      "id": "dcfdbb3f-826b-41a0-a427-96f50125cd9f",
+      "name": "Raúl",
+      "email": "juan@example.com"
+    },
+    {
+      "id": "c82d60a8-68fc-4ae2-9c6e-02f960242bc1",
+      "name": "Laura",
+      "email": "pedro@example.com"
+    },
+    {
+      "id": "6986b721-9ade-4533-9a8a-51a6981fba91",
+      "name": "Jorge",
+      "email": "david@example.com"
+    },
+    {
+      "id": "895d4c5a-b489-4b39-aeaf-88d47cb8e5ff",
+      "name": "Verónica",
+      "email": "laura@example.com"
+    },
+    {
+      "id": "4fe98bff-126b-4f03-8181-829b17c2f7d3",
+      "name": "Juan",
+      "email": "marta@example.com"
+    },
+    {
+      "id": "f45f158a-286e-411d-aaaf-d360c1966340",
+      "name": "Luis",
+      "email": "paula@example.com"
+    },
+    {
+      "id": "7c2a2527-94bf-4f8b-b3fa-8f9042dac67e",
+      "name": "José",
+      "email": "sara@example.com"
+    },
+    {
+      "id": "5562b2d5-3963-4d01-be3f-4e425233af83",
+      "name": "Ana",
+      "email": "laura@example.com"
+    },
+    {
+      "id": "c613813c-0df7-42b3-b3d7-1bd5c730b441",
+      "name": "David",
+      "email": "paula@example.com"
+    },
+    {
+      "id": "c19dcbba-bff5-4a44-9ddc-0baf2fc45e3a",
+      "name": "Juan",
+      "email": "sara@example.com"
     }
   ]
 }
