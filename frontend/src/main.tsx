@@ -6,6 +6,8 @@ import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <div className="min-h-screen w-full">
+      <App />
+    </div>
+  </StrictMode>
+);
